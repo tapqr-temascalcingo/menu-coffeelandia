@@ -1,0 +1,2260 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Menú · Coffeelandia La Cafetería</title>
+  <meta name="description" content="Menú de Coffeelandia La Cafetería: café, frappés, tisanas, malteadas, sodas italianas y más.">
+  <meta name="theme-color" content="#FAF3E6">
+  <meta name="color-scheme" content="light">
+
+  <!-- Open Graph: WhatsApp e Instagram necesitan la URL completa de la imagen.
+       Si el menú se muda a otra dirección, cambia también esta URL. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_MX">
+  <meta property="og:site_name" content="Coffeelandia La Cafetería">
+  <meta property="og:title" content="Menú · Coffeelandia La Cafetería">
+  <meta property="og:description" content="Café, frappés, tisanas, malteadas, sodas italianas y más.">
+  <meta property="og:image" content="https://tapqr-temascalcingo.github.io/menu-coffeelandia/logo.png">
+  <meta property="og:image:alt" content="Logo de Coffeelandia La Cafetería">
+  <meta name="twitter:card" content="summary">
+
+  <link rel="icon" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       Colores sacados del logo y del menú impreso:
+       fondo crema, títulos vino, acentos rosa del borde ondulado,
+       texto café oscuro. Títulos en Cinzel (como "LA CAFETERIA" del logo).
+       Contraste: vino sobre crema 10.6:1, café sobre crema 13.9:1,
+       café suave sobre crema 7.1:1, crema sobre vino 10.6:1.
+       ========================================================= */
+    :root {
+      --crema: #FAF3E6;
+      --crema-clara: #FFFCF6;
+      --vino: #7A1F2E;
+      --rosa: #E58A9C;
+      --rosa-claro: #F9DCE2;
+      --rosa-papel: #FCEDEF;
+      --cafe: #3D2419;
+      --cafe-suave: #6B4A3B;
+
+      --ancho: 480px;
+      --margen: 16px;
+      --sombra: 0 1px 2px rgba(122, 31, 46, 0.05), 0 8px 20px -12px rgba(122, 31, 46, 0.28);
+
+      --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+      --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+      background: var(--crema);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100dvh;
+      font-family: "Outfit", system-ui, sans-serif;
+      font-size: 1rem;
+      line-height: 1.4;
+      color: var(--cafe);
+      background: var(--crema);
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+      /* Carga inmediata: solo un fundido corto */
+      animation: desvanecer 200ms ease-out backwards;
+    }
+    @keyframes desvanecer { from { opacity: 0; } }
+
+    ::selection { background: var(--rosa-claro); color: var(--vino); }
+
+    [hidden] { display: none !important; }
+    img { display: block; max-width: 100%; }
+    h1, h2, h3 { margin: 0; font-weight: 400; }
+    p { margin: 0; }
+
+    .icono { width: 20px; height: 20px; flex: none; fill: currentColor; }
+
+    .columna {
+      width: 100%;
+      max-width: var(--ancho);
+      margin: 0 auto;
+      padding-inline: var(--margen);
+    }
+
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--rosa);
+      outline-offset: 3px;
+    }
+
+    .solo-lector {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    /* ---------- Cabecera ---------- */
+    .cabecera {
+      position: relative;
+      background: var(--crema-clara);
+      text-align: center;
+    }
+    /* Borde ondulado rosa como el del logo, entre cabecera y menú */
+    .cabecera::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: calc(100% - 1px);
+      height: 10px;
+      background:
+        radial-gradient(circle at 50% 0, var(--crema-clara) 8px, transparent 8.5px) 0 0 / 20px 10px repeat-x,
+        radial-gradient(circle at 50% 0, var(--rosa) 10px, transparent 10.5px) 0 0 / 20px 12px repeat-x;
+      pointer-events: none;
+    }
+    .cabecera .columna { padding-block: 18px 16px; }
+    .logo {
+      width: 148px;
+      height: 148px;
+      margin: 0 auto;
+    }
+
+    /* ---------- Menú ---------- */
+    .menu { padding-block: 34px 8px; }
+    .grupo + .grupo { margin-top: 40px; }
+
+    /* Título en mayúsculas espaciadas con doble línea fina rosa debajo */
+    .grupo-cabecera {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .grupo-titulo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 6px 10px;
+      background:
+        linear-gradient(var(--rosa), var(--rosa)) 0 calc(100% - 4px) / 100% 1px no-repeat,
+        linear-gradient(var(--rosa), var(--rosa)) 0 100% / 100% 1px no-repeat;
+      font-family: "Cinzel", Georgia, serif;
+      font-weight: 700;
+      font-size: 1.375rem;
+      line-height: 1.2;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--vino);
+      text-align: center;
+      text-wrap: balance;
+    }
+    /* Las letras espaciadas dejan aire a la derecha; esto lo compensa */
+    .grupo-titulo-texto { margin-right: -0.16em; }
+    .grupo-precio {
+      flex: none;
+      padding: 3px 11px 4px;
+      border-radius: 999px;
+      background: var(--vino);
+      color: var(--crema-clara);
+      font-family: "Outfit", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.0625rem;
+      letter-spacing: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Cada sección: una tarjeta con su foto 16:9 arriba y el contenido abajo */
+    .carta {
+      padding: 8px;
+      border-radius: 18px;
+      background: var(--crema-clara);
+      box-shadow: var(--sombra);
+    }
+    .carta-media {
+      position: relative;
+      display: block;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 42%, var(--rosa-papel) 0%, var(--rosa-claro) 100%);
+    }
+    /* Marcador mientras no exista la foto: ícono de línea al centro */
+    .carta-icono {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+    .carta-icono .ico { width: 52px; height: 52px; }
+    .carta-foto {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 200ms ease;
+    }
+    .carta-foto.cargada { opacity: 1; }
+
+    /* a) Productos con precio propio: nombre, línea punteada, "+" y precio.
+       El "+" va a la izquierda del precio. Al abrirse en − n + crece hacia
+       la izquierda, sobre la línea punteada, que siempre guarda ese espacio:
+       el precio sigue a la vista y la fila no cambia de tamaño. */
+    .filas {
+      display: grid;
+      gap: 2px;
+      margin: 6px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .fila {
+      display: block;
+      padding: 2px 8px 4px;
+      border-radius: 12px;
+      background: transparent;
+    }
+    .fila-linea {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      min-height: 44px;
+      padding-bottom: 11px;
+    }
+    .fila-nombre {
+      flex: 0 1 auto;
+      min-width: 0;
+      margin-right: 8px;
+      font-weight: 600;
+      font-size: 1.0625rem;
+      line-height: 1.25;
+    }
+    .fila-medida {
+      font-weight: 400;
+      color: var(--cafe-suave);
+      white-space: nowrap;
+    }
+    .fila-guia {
+      flex: 1 1 58px;
+      min-width: 58px; /* lugar del − y el número cuando se abre el control */
+      margin-bottom: 0.32em;
+      border-bottom: 2px dotted rgba(229, 138, 156, 0.75);
+    }
+    .fila-guia.vacia { border-bottom-color: transparent; }
+    .paso-lugar {
+      position: relative;
+      flex: none;
+      align-self: stretch;
+      width: 44px;
+      margin-bottom: -11px;
+    }
+    .fila-precio {
+      flex: none;
+      min-width: 2.2em; /* los "+" quedan alineados en columna */
+      text-align: right;
+      font-weight: 700;
+      font-size: 1.125rem;
+      line-height: 1.2;
+      color: var(--vino);
+      font-variant-numeric: tabular-nums;
+    }
+    .fila-detalle {
+      display: block;
+      margin-top: 0; /* debajo del "+" abierto, sin tocarlo */
+      max-width: 34ch;
+      font-size: 0.875rem;
+      line-height: 1.35;
+      color: var(--cafe-suave);
+    }
+
+    /* b) Un precio para toda la sección: sabores como pastillas tocables */
+    .sabores-titulo {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 14px 8px 0;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cafe-suave);
+    }
+    .sabores-pista {
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .sabores {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+      padding: 10px 8px 8px;
+      list-style: none;
+    }
+    .sabores li { display: flex; }
+    .sabor {
+      position: relative;
+      min-height: 44px;
+      padding: 0 16px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--rosa-papel);
+      box-shadow: inset 0 0 0 1px var(--rosa-claro);
+      color: var(--cafe);
+      font: inherit;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      line-height: 1.2;
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none;
+      touch-action: manipulation;
+      transition: transform 160ms var(--ease-out), box-shadow 160ms ease, background-color 160ms ease;
+    }
+    .sabor:active { transform: scale(0.96); }
+    .sabor.con {
+      background: var(--crema-clara);
+      box-shadow: inset 0 0 0 1.5px var(--vino);
+    }
+    /* Cuántos lleva: globo en la esquina, no cambia el ancho de la pastilla */
+    .sabor-cuenta {
+      position: absolute;
+      top: -7px;
+      right: -5px;
+      display: grid;
+      place-items: center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--vino);
+      color: var(--crema-clara);
+      box-shadow: 0 0 0 2px var(--crema-clara);
+      font-size: 0.75rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 150ms ease, transform 200ms var(--ease-out);
+      pointer-events: none;
+    }
+    .sabor.con .sabor-cuenta { opacity: 1; transform: none; }
+    /* Producto aparte dentro de una sección de precio único (Malteadas) */
+    .sabores + .filas {
+      margin-top: 10px;
+      padding-top: 6px;
+      border-top: 1px solid var(--rosa-claro);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .carta-foto { transition: none; }
+    }
+
+    /* ---------- Pie ---------- */
+    .pie {
+      padding-block: 36px calc(32px + env(safe-area-inset-bottom));
+      text-align: center;
+    }
+    .pie-telefono {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 10px 24px 10px 20px;
+      border-radius: 999px;
+      background: var(--vino);
+      color: var(--crema-clara);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      text-decoration: none;
+      box-shadow: 0 8px 18px -10px rgba(122, 31, 46, 0.7);
+      transition: transform 160ms var(--ease-out);
+      touch-action: manipulation;
+    }
+    .pie-telefono:active { transform: scale(0.97); }
+    .pie-telefono .icono { width: 22px; height: 22px; }
+    /* Etiqueta pequeña arriba y número grande abajo */
+    .pie-telefono-texto {
+      display: grid;
+      text-align: left;
+      line-height: 1.2;
+    }
+    .pie-telefono-etiqueta {
+      font-weight: 500;
+      font-size: 0.8125rem;
+    }
+    .pie-telefono-numero {
+      font-size: 1.1875rem;
+      letter-spacing: 0.01em;
+      font-variant-numeric: tabular-nums;
+    }
+    .pie-nota {
+      margin-top: 10px;
+      font-size: 0.8125rem;
+      line-height: 1.4;
+      color: var(--cafe-suave);
+    }
+    .pie-pedidos { margin-bottom: 22px; }
+
+    .redes {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 0 0 20px;
+      padding: 0;
+      list-style: none;
+    }
+    .redes a {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--crema-clara);
+      color: var(--vino);
+      box-shadow: var(--sombra);
+      transition: transform 160ms var(--ease-out);
+      touch-action: manipulation;
+    }
+    .redes a:active { transform: scale(0.94); }
+
+    .gracias {
+      font-family: "Cinzel", Georgia, serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: 0.06em;
+      color: var(--vino);
+    }
+    .lugar {
+      margin-top: 6px;
+      font-size: 0.875rem;
+      line-height: 1.4;
+      color: var(--cafe-suave);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pie-telefono:active, .redes a:active { transform: none; }
+    }
+
+    /* ---------- Íconos de línea ---------- */
+    .ico {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      color: var(--vino);
+    }
+    /* El trazo se queda en 1.75px aunque el ícono se vea más grande */
+    .ico * { vector-effect: non-scaling-stroke; }
+
+    /* ---------- Barra superior fija (cubre la hora y la batería del iPhone) ---------- */
+    .cabecera { padding-top: env(safe-area-inset-top, 0px); }
+    .franja-estado {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      height: env(safe-area-inset-top, 0px);
+      background: var(--crema);
+      pointer-events: none;
+    }
+    .barra-fija {
+      position: fixed;
+      top: env(safe-area-inset-top, 0px);
+      left: 0;
+      right: 0;
+      z-index: 40;
+      background: var(--crema);
+      box-shadow: 0 1px 0 var(--rosa-claro), 0 8px 16px -12px rgba(122, 31, 46, 0.45);
+      transform: translateY(-110%);
+      transition: transform 180ms var(--ease-out);
+    }
+    .barra-fija.visible {
+      transform: none;
+      transition-duration: 240ms;
+    }
+    .barra-fija:not(.visible) { pointer-events: none; }
+    /* Seis pestañas: si no caben, se recorren de lado */
+    .barra-fija nav {
+      position: relative;
+      display: flex;
+      gap: 4px;
+      max-width: var(--ancho);
+      margin: 0 auto;
+      /* Aire al final para que la última pestaña salga del difuminado */
+      padding: 6px 32px 6px var(--margen);
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 28px), transparent);
+      mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 28px), transparent);
+    }
+    .barra-fija nav::-webkit-scrollbar { display: none; }
+    .barra-fija a {
+      display: grid;
+      place-items: center;
+      flex: none;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      color: var(--cafe);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform 160ms var(--ease-out);
+      touch-action: manipulation;
+    }
+    .barra-fija a[aria-current="true"] {
+      background: var(--vino);
+      color: var(--crema-clara);
+    }
+    .barra-fija a:active { transform: scale(0.97); }
+    /* Al saltar a una sección, el título queda debajo de la barra */
+    .grupo { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 80px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .barra-fija { transform: none; opacity: 0; transition: opacity 160ms ease; }
+      .barra-fija.visible { opacity: 1; }
+      .barra-fija a:active { transform: none; }
+    }
+
+    /* ---------- Productos con ingredientes: "Ver ingredientes" abre el panel ---------- */
+    .pista {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      min-height: 44px;
+      margin: -8px 0 -10px;
+      padding: 0;
+      border: 0;
+      background: none;
+      font: inherit;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--vino);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .pista .ico { width: 14px; height: 14px; }
+
+    /* ---------- Panel de ingredientes (sube desde abajo) ---------- */
+    .hoja {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+    }
+    .hoja[hidden] { display: none; }
+    .hoja-fondo {
+      position: absolute;
+      inset: 0;
+      background: rgba(61, 36, 25, 0.45);
+      opacity: 0;
+      transition: opacity 200ms ease;
+    }
+    .hoja.abierta .hoja-fondo { opacity: 1; transition-duration: 300ms; }
+    .hoja-panel {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      max-width: var(--ancho);
+      max-height: 88dvh;
+      margin: 0 auto;
+      padding: 8px 16px calc(24px + env(safe-area-inset-bottom, 0px));
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      border-radius: 24px 24px 0 0;
+      background: var(--crema-clara);
+      box-shadow: 0 -12px 32px -14px rgba(61, 36, 25, 0.4);
+      /* Cerrado: fuera de la pantalla. Salida un poco más rápida que la entrada */
+      transform: translateY(100%);
+      transition: transform 220ms var(--ease-out);
+    }
+    .hoja.abierta .hoja-panel {
+      transform: translateY(0);
+      transition: transform 340ms var(--ease-drawer);
+    }
+    .hoja-panel.arrastrando { transition: none; }
+    .hoja-arrastre {
+      touch-action: none;
+      cursor: grab;
+    }
+    .hoja-asa {
+      width: 40px;
+      height: 5px;
+      margin: 2px auto 10px;
+      border-radius: 999px;
+      background: rgba(61, 36, 25, 0.2);
+    }
+    .hoja-media {
+      position: relative;
+      display: grid;
+      place-items: center;
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 42%, var(--rosa-papel) 0%, var(--rosa-claro) 100%);
+    }
+    .hoja-media .ico { width: 60px; height: 60px; }
+    .hoja-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 200ms ease;
+    }
+    .hoja-media img.cargada { opacity: 1; }
+    .hoja-cerrar {
+      position: absolute;
+      top: 33px;
+      right: 24px;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 252, 246, 0.94);
+      box-shadow: 0 4px 12px -6px rgba(61, 36, 25, 0.5);
+      cursor: pointer;
+      transition: transform 160ms var(--ease-out);
+    }
+    .hoja-cerrar:active { transform: scale(0.94); }
+    .hoja-cerrar .ico { width: 20px; height: 20px; color: var(--cafe); }
+    .hoja-cabeza {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .hoja-titulo {
+      font-family: "Cinzel", Georgia, serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      color: var(--vino);
+    }
+    .hoja-precio {
+      flex: none;
+      font-weight: 700;
+      font-size: 1.375rem;
+      color: var(--vino);
+      font-variant-numeric: tabular-nums;
+    }
+    .hoja-detalle {
+      margin-top: 2px;
+      font-size: 0.875rem;
+      color: var(--cafe-suave);
+    }
+    .hoja-detalle:empty { display: none; }
+    .hoja-subtitulo {
+      margin: 18px 0 0;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cafe-suave);
+    }
+    .hoja-ingredientes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 8px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+    .hoja-ingredientes li {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--rosa-papel);
+      box-shadow: inset 0 0 0 1px var(--rosa-claro);
+      color: var(--cafe);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hoja-cerrar:active { transform: none; }
+      .hoja-panel,
+      .hoja.abierta .hoja-panel {
+        transform: none;
+        opacity: 0;
+        transition: opacity 200ms ease;
+      }
+      .hoja.abierta .hoja-panel { opacity: 1; }
+    }
+    /* ---------- Botón "+" que se abre en − cantidad + ---------- */
+    .paso {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      height: 44px;
+      border-radius: 22px;
+      background: transparent;
+      box-shadow: none;
+      /* Cerrado: solo queda el lugar del "+" (44px, también para tocar) */
+      clip-path: inset(0 0 0 calc(100% - 44px) round 22px);
+      transition: clip-path 180ms var(--ease-out), background-color 180ms ease, box-shadow 180ms ease;
+    }
+    .paso.con {
+      background: var(--rosa-papel);
+      box-shadow: inset 0 0 0 1px var(--rosa-claro);
+      clip-path: inset(0 0 0 0 round 22px);
+      transition-duration: 260ms;
+    }
+    .paso button {
+      position: relative;
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: none;
+      color: var(--vino);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    .paso button:focus-visible { outline-offset: -3px; }
+    .paso .ico {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.25;
+      transition: transform 160ms var(--ease-out);
+    }
+    .paso-mas::before {
+      content: "";
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      background: var(--vino);
+      box-shadow: 0 4px 10px -6px rgba(122, 31, 46, 0.8);
+      transition: transform 160ms var(--ease-out);
+    }
+    .paso-mas .ico { color: var(--crema-clara); }
+    .paso-mas:active::before { transform: scale(0.9); }
+    .paso-menos:active .ico { transform: scale(0.8); }
+    .paso-num {
+      display: inline-block;
+      min-width: 20px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.0625rem;
+      color: var(--cafe);
+      font-variant-numeric: tabular-nums;
+    }
+    /* El − y el número no se pueden tocar ni enfocar mientras está cerrado */
+    .paso-menos, .paso-num {
+      visibility: hidden;
+      transition: visibility 0s 180ms;
+    }
+    .paso.con .paso-menos, .paso.con .paso-num {
+      visibility: visible;
+      transition-delay: 0s;
+    }
+    /* Dentro de la hoja del pedido: siempre abierto y en su lugar */
+    .paso.estatico { position: static; }
+
+    /* ---------- Barra del pedido (fija abajo) ---------- */
+    .barra-pedido {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 45;
+      padding: 0 var(--margen) calc(12px + env(safe-area-inset-bottom, 0px));
+      pointer-events: none;
+      transform: translateY(calc(100% + 12px));
+      transition: transform 200ms var(--ease-out);
+    }
+    .barra-pedido.visible {
+      transform: none;
+      transition: transform 340ms var(--ease-drawer);
+    }
+    .barra-pedido-boton {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      max-width: calc(var(--ancho) - 2 * var(--margen));
+      min-height: 58px;
+      margin: 0 auto;
+      padding: 8px 10px 8px 22px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--vino);
+      color: var(--crema-clara);
+      box-shadow: 0 12px 28px -12px rgba(61, 36, 25, 0.6);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: manipulation;
+      transition: transform 160ms var(--ease-out);
+    }
+    .barra-pedido:not(.visible) .barra-pedido-boton { pointer-events: none; }
+    .barra-pedido-boton:active { transform: scale(0.98); }
+    .barra-pedido-texto { flex: 1; min-width: 0; display: grid; line-height: 1.25; }
+    .barra-pedido-titulo { font-weight: 700; font-size: 1.0625rem; }
+    .barra-pedido-resumen {
+      font-size: 0.875rem;
+      font-variant-numeric: tabular-nums;
+      opacity: 0.9;
+    }
+    .barra-pedido-flecha {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 252, 246, 0.14);
+    }
+    .barra-pedido-flecha .ico { width: 20px; height: 20px; color: var(--crema-clara); }
+    /* Espacio al final para que la barra no tape el pie */
+    body.con-pedido { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+
+    /* ---------- Encabezado fijo de las hojas de sabor y pedido ---------- */
+    .hoja-barra {
+      position: sticky;
+      top: -8px; /* cubre también el relleno superior del panel */
+      z-index: 2;
+      margin: -8px -16px 0;
+      padding: 8px 16px 12px;
+      border-radius: 24px 24px 0 0;
+      background: var(--crema-clara);
+    }
+    .hoja-barra-fila {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .hoja-barra .hoja-detalle { margin-top: 2px; }
+    .hoja-x {
+      display: grid;
+      place-items: center;
+      flex: none;
+      width: 44px;
+      height: 44px;
+      margin: -6px -6px 0 0;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: var(--rosa-papel);
+      cursor: pointer;
+      transition: transform 160ms var(--ease-out);
+    }
+    .hoja-x .ico { width: 20px; height: 20px; color: var(--cafe); }
+    .hoja-x:active { transform: scale(0.94); }
+
+    /* ---------- Hoja de sabor ---------- */
+    .opciones {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin: 10px 0 4px;
+      padding: 0;
+      list-style: none;
+    }
+    .opcion {
+      width: 100%;
+      min-height: 52px;
+      padding: 8px 12px;
+      border: 0;
+      border-radius: 14px;
+      background: var(--rosa-papel);
+      box-shadow: inset 0 0 0 1px var(--rosa-claro);
+      color: var(--cafe);
+      font: inherit;
+      font-weight: 600;
+      line-height: 1.2;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 160ms var(--ease-out), background-color 160ms ease;
+    }
+    .opcion:active { transform: scale(0.97); background: var(--rosa-claro); }
+
+    /* ---------- Hoja del pedido ---------- */
+    .pedido-lista { margin: 0; padding: 0; list-style: none; }
+    .pedido-item { padding: 12px 0; }
+    .pedido-item + .pedido-item { border-top: 1px solid var(--rosa-claro); }
+    .pedido-fila {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .pedido-texto { min-width: 0; }
+    .pedido-nombre {
+      display: block;
+      font-weight: 600;
+      font-size: 1.0625rem;
+      line-height: 1.25;
+    }
+    .pedido-sabor {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.875rem;
+      color: var(--cafe-suave);
+    }
+    .pedido-importe { flex: none; text-align: right; }
+    .pedido-subtotal {
+      display: block;
+      font-weight: 700;
+      font-size: 1.0625rem;
+      color: var(--vino);
+      font-variant-numeric: tabular-nums;
+    }
+    .pedido-unitario, .pedido-pendiente {
+      display: block;
+      font-size: 0.8125rem;
+      line-height: 1.3;
+      color: var(--cafe-suave);
+      font-variant-numeric: tabular-nums;
+    }
+    .pedido-pendiente { max-width: 9.5em; padding-top: 2px; }
+    .pedido-controles {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .pedido-quitar {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 44px;
+      margin-right: -10px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 999px;
+      background: none;
+      color: var(--cafe-suave);
+      font: inherit;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 160ms var(--ease-out), background-color 160ms ease;
+    }
+    .pedido-quitar .ico { width: 18px; height: 18px; color: currentColor; }
+    .pedido-quitar:active { transform: scale(0.97); background: var(--rosa-papel); }
+    /* Total con la misma doble línea rosa de los títulos */
+    .pedido-total {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 4px;
+      padding-top: 14px;
+      background:
+        linear-gradient(var(--rosa), var(--rosa)) 0 0 / 100% 1px no-repeat,
+        linear-gradient(var(--rosa), var(--rosa)) 0 4px / 100% 1px no-repeat;
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: var(--vino);
+      font-variant-numeric: tabular-nums;
+    }
+    .pedido-total-nota {
+      margin-top: 2px;
+      text-align: right;
+      font-size: 0.8125rem;
+      color: var(--cafe-suave);
+    }
+    .pedido-vacio {
+      padding: 24px 0 8px;
+      text-align: center;
+      color: var(--cafe-suave);
+    }
+
+    /* Formulario */
+    .pedido-seccion {
+      margin: 26px 0 0;
+      font-family: "Cinzel", Georgia, serif;
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      color: var(--vino);
+    }
+    .campo {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+      margin: 14px 0 0;
+      padding: 0;
+      border: 0;
+    }
+    .campo > label, .campo > legend {
+      padding: 0;
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+    .campo > legend { margin-bottom: 6px; }
+    .opcional { font-weight: 400; color: var(--cafe-suave); }
+    .campo input[type="text"], .campo textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 14px;
+      border: 1px solid #B08E81;
+      border-radius: 12px;
+      background: #FFFEFB;
+      color: var(--cafe);
+      font: inherit;
+      font-size: 1rem; /* 16px: el iPhone no hace zoom al escribir */
+      line-height: 1.35;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+    .campo textarea { min-height: 76px; resize: vertical; }
+    .campo ::placeholder { color: #86675A; opacity: 1; }
+    .campo input[type="text"]:focus, .campo textarea:focus {
+      outline: none;
+      border-color: var(--vino);
+      box-shadow: 0 0 0 3px var(--rosa-claro);
+    }
+    .campo [aria-invalid="true"] {
+      border-color: var(--vino);
+      box-shadow: inset 0 0 0 1px var(--vino);
+    }
+    .campo-error {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--vino);
+    }
+    .campo-error .ico { width: 16px; height: 16px; flex: none; }
+
+    .entrega-opciones {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .entrega-opcion {
+      position: relative;
+      display: grid;
+      place-items: center;
+      min-height: 52px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: var(--rosa-papel);
+      box-shadow: inset 0 0 0 1px var(--rosa-claro);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      line-height: 1.2;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms var(--ease-out);
+    }
+    .entrega-opcion input {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    .entrega-opcion:has(input:checked) {
+      background: var(--vino);
+      color: var(--crema-clara);
+      box-shadow: none;
+    }
+    .entrega-opcion:has(input:focus-visible) { outline: 3px solid var(--rosa); outline-offset: 3px; }
+    .entrega-opcion:active { transform: scale(0.97); }
+    .entrega.con-error .entrega-opcion { box-shadow: inset 0 0 0 1.5px var(--vino); }
+
+    .envio {
+      display: grid;
+      opacity: 1;
+      transform: none;
+      transition: opacity 200ms ease, transform 240ms var(--ease-out);
+    }
+    @starting-style {
+      .envio { opacity: 0; transform: translateY(-6px); }
+    }
+    .envio-nota {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--rosa-papel);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+    .envio-nota .ico { width: 18px; height: 18px; flex: none; }
+
+    .boton-enviar, .boton-primario, .boton-secundario {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 52px;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--vino);
+      color: var(--crema-clara);
+      font: inherit;
+      font-weight: 700;
+      font-size: 1.0625rem;
+      line-height: 1.2;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 160ms var(--ease-out);
+    }
+    .boton-enviar {
+      margin-top: 22px;
+      box-shadow: 0 8px 18px -10px rgba(122, 31, 46, 0.7);
+    }
+    .boton-enviar .ico { width: 20px; height: 20px; color: var(--crema-clara); }
+    .boton-enviar:disabled {
+      background: var(--rosa-claro);
+      color: var(--cafe-suave);
+      box-shadow: none;
+      cursor: default;
+    }
+    .boton-enviar:disabled:active { transform: none; }
+    .boton-secundario {
+      background: transparent;
+      color: var(--vino);
+      box-shadow: inset 0 0 0 1.5px var(--vino);
+    }
+    .boton-enviar:active, .boton-primario:active, .boton-secundario:active { transform: scale(0.97); }
+    .pedido-vacio .boton-secundario { width: auto; margin: 16px auto 0; }
+
+    .pedido-enviado {
+      margin-top: 22px;
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--rosa-papel);
+      text-align: center;
+    }
+    .pedido-enviado-titulo { font-weight: 700; font-size: 1.0625rem; color: var(--vino); }
+    .pedido-enviado-titulo:focus { outline: none; }
+    .pedido-enviado-texto { margin-top: 4px; font-size: 0.875rem; color: var(--cafe-suave); }
+    .pedido-enviado-botones {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .pedido-enviado-botones > button { min-height: 48px; font-size: 1rem; }
+    .hoja-titulo:focus { outline: none; }
+
+    /* Al cargar un pedido guardado, todo aparece ya en su lugar, sin animar */
+    .sin-animar *, .sin-animar *::before { transition: none !important; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .paso, .paso.con { transition: background-color 120ms ease, box-shadow 120ms ease; }
+      .paso .ico, .paso-mas::before { transition: none; }
+      .paso-mas:active::before, .paso-menos:active .ico,
+      .sabor:active, .opcion:active, .pedido-quitar:active, .entrega-opcion:active,
+      .barra-pedido-boton:active, .hoja-x:active,
+      .boton-enviar:active, .boton-primario:active, .boton-secundario:active { transform: none; }
+      .sabor-cuenta { transform: none; }
+      .barra-pedido { transform: none; opacity: 0; transition: opacity 160ms ease; }
+      .barra-pedido.visible { opacity: 1; transition: opacity 200ms ease; }
+      .envio { transform: none; }
+      @starting-style { .envio { transform: none; } }
+    }
+  </style>
+</head>
+<body>
+  <div class="franja-estado" aria-hidden="true"></div>
+  <div class="barra-fija" id="barra-fija" inert>
+    <nav id="pestanas-fijas" aria-label="Secciones del menú"></nav>
+  </div>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- Íconos: Simple Icons (marcas) y Phosphor Bold (teléfono) -->
+    <symbol id="i-instagram" viewBox="0 0 24 24"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></symbol>
+    <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
+    <symbol id="i-google" viewBox="0 0 24 24"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></symbol>
+    <symbol id="i-telefono" viewBox="0 0 256 256"><path d="M224,154.8l-47.09-21.11-.18-.08a19.94,19.94,0,0,0-19,1.75,13.08,13.08,0,0,0-1.12.84l-22.31,19c-13-7.05-26.43-20.37-33.49-33.21l19.06-22.66a11.76,11.76,0,0,0,.85-1.15,20,20,0,0,0,1.66-18.83,1.42,1.42,0,0,1-.08-.18L101.2,32A20.06,20.06,0,0,0,80.42,20.15,60.27,60.27,0,0,0,28,80c0,81.61,66.39,148,148,148a60.27,60.27,0,0,0,59.85-52.42A20.06,20.06,0,0,0,224,154.8ZM176,204A124.15,124.15,0,0,1,52,80,36.29,36.29,0,0,1,80.48,44.46l18.82,42L80.14,109.28a12,12,0,0,0-.86,1.16A20,20,0,0,0,78,130.08c9.42,19.28,28.83,38.56,48.31,48A20,20,0,0,0,146,176.63a11.63,11.63,0,0,0,1.11-.85l22.43-19.07,42,18.81A36.29,36.29,0,0,1,176,204Z"/></symbol>
+  </svg>
+
+  <header class="cabecera">
+    <div class="columna">
+      <h1><img class="logo" src="logo.png" alt="Coffeelandia La Cafetería" width="148" height="148" fetchpriority="high"></h1>
+    </div>
+  </header>
+
+  <main class="columna menu" id="menu"></main>
+  <noscript>
+    <p class="columna">Activa JavaScript para ver el menú.</p>
+  </noscript>
+
+  <footer class="columna pie">
+    <div class="pie-pedidos" id="pedidos" hidden>
+      <a class="pie-telefono" id="telefono" href="#">
+        <svg class="icono" aria-hidden="true"><use href="#i-telefono"/></svg>
+        <span class="pie-telefono-texto">
+          <span class="pie-telefono-etiqueta" id="telefono-etiqueta"></span>
+          <span class="pie-telefono-numero" id="telefono-numero"></span>
+        </span>
+      </a>
+      <p class="pie-nota" id="nota-envio" hidden></p>
+    </div>
+    <ul class="redes" id="redes" aria-label="Redes sociales" hidden></ul>
+    <p class="gracias">¡Gracias por tu preferencia!</p>
+    <p class="lugar" id="direccion" hidden></p>
+  </footer>
+
+  <div class="hoja" id="hoja" hidden>
+    <div class="hoja-fondo" data-cerrar></div>
+    <div class="hoja-panel" role="dialog" aria-modal="true" aria-labelledby="hoja-titulo">
+      <div class="hoja-arrastre">
+        <div class="hoja-asa" aria-hidden="true"></div>
+        <div class="hoja-media" id="hoja-media" aria-hidden="true"></div>
+      </div>
+      <button class="hoja-cerrar" id="hoja-cerrar" type="button" aria-label="Cerrar" data-cerrar data-cerrar-boton data-icono="cerrar"></button>
+      <div class="hoja-cabeza">
+        <h2 class="hoja-titulo" id="hoja-titulo"></h2>
+        <p class="hoja-precio" id="hoja-precio"></p>
+      </div>
+      <p class="hoja-detalle" id="hoja-detalle"></p>
+      <h3 class="hoja-subtitulo">Ingredientes</h3>
+      <ul class="hoja-ingredientes" id="hoja-ingredientes"></ul>
+    </div>
+  </div>
+
+  <p class="solo-lector" id="anuncio" aria-live="polite"></p>
+
+  <div class="barra-pedido" id="barra-pedido" inert>
+    <button class="barra-pedido-boton" id="ver-pedido" type="button" aria-haspopup="dialog">
+      <span class="barra-pedido-texto">
+        <span class="barra-pedido-titulo">Ver pedido</span>
+        <span class="barra-pedido-resumen" id="barra-pedido-resumen"></span>
+      </span>
+      <span class="barra-pedido-flecha" data-icono="arriba" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="hoja" id="hoja-sabor" hidden>
+    <div class="hoja-fondo" data-cerrar></div>
+    <div class="hoja-panel" role="dialog" aria-modal="true" aria-labelledby="sabor-titulo">
+      <div class="hoja-arrastre hoja-barra">
+        <div class="hoja-asa" aria-hidden="true"></div>
+        <div class="hoja-barra-fila">
+          <div>
+            <h2 class="hoja-titulo" id="sabor-titulo"></h2>
+            <p class="hoja-detalle" id="sabor-precio"></p>
+          </div>
+          <button class="hoja-x" type="button" aria-label="Cerrar" data-cerrar data-cerrar-boton data-icono="cerrar"></button>
+        </div>
+      </div>
+      <div id="sabor-contenido"></div>
+    </div>
+  </div>
+
+  <div class="hoja" id="hoja-pedido" hidden>
+    <div class="hoja-fondo" data-cerrar></div>
+    <div class="hoja-panel" role="dialog" aria-modal="true" aria-labelledby="pedido-titulo">
+      <div class="hoja-arrastre hoja-barra">
+        <div class="hoja-asa" aria-hidden="true"></div>
+        <div class="hoja-barra-fila">
+          <div>
+            <h2 class="hoja-titulo" id="pedido-titulo" tabindex="-1">Tu pedido</h2>
+            <p class="hoja-detalle" id="pedido-folio"></p>
+          </div>
+          <button class="hoja-x" type="button" aria-label="Cerrar" data-cerrar data-cerrar-boton data-icono="cerrar"></button>
+        </div>
+      </div>
+
+      <div class="pedido-vacio" id="pedido-vacio" hidden>
+        <p>Tu pedido está vacío.</p>
+        <button class="boton-secundario" id="pedido-vacio-boton" type="button" data-cerrar>Ver el menú</button>
+      </div>
+
+      <div id="pedido-contenido">
+        <ul class="pedido-lista" id="pedido-lista" role="list"></ul>
+        <p class="pedido-total"><span>Total</span><span id="pedido-total"></span></p>
+        <p class="pedido-total-nota" id="pedido-total-nota" hidden>Más productos con precio por confirmar</p>
+
+        <form id="pedido-form" novalidate>
+          <h3 class="pedido-seccion">Tus datos</h3>
+          <div class="campo">
+            <label for="f-nombre">Nombre</label>
+            <input type="text" id="f-nombre" name="nombre" autocomplete="name" required aria-describedby="e-nombre">
+            <p class="campo-error" id="e-nombre" data-icono="alerta" hidden>Escribe tu nombre.</p>
+          </div>
+          <fieldset class="campo entrega" aria-describedby="e-entrega">
+            <legend>¿Cómo lo quieres?</legend>
+            <div class="entrega-opciones">
+              <label class="entrega-opcion"><input type="radio" name="entrega" value="Recoger en tienda" required><span>Recoger en tienda</span></label>
+              <label class="entrega-opcion"><input type="radio" name="entrega" value="Envío a domicilio"><span>Envío a domicilio</span></label>
+            </div>
+            <p class="campo-error" id="e-entrega" data-icono="alerta" hidden>Elige cómo lo quieres.</p>
+          </fieldset>
+          <div class="envio" id="envio" hidden>
+            <p class="envio-nota" data-icono="ubicacion">Envío solo en Temascalcingo</p>
+            <div class="campo">
+              <label for="f-direccion">Dirección</label>
+              <input type="text" id="f-direccion" name="direccion" autocomplete="street-address" aria-describedby="e-direccion">
+              <p class="campo-error" id="e-direccion" data-icono="alerta" hidden>Escribe la dirección de entrega.</p>
+            </div>
+            <div class="campo">
+              <label for="f-referencia">Referencia</label>
+              <input type="text" id="f-referencia" name="referencia" placeholder="Ej. casa azul, junto a la tienda" aria-describedby="e-referencia">
+              <p class="campo-error" id="e-referencia" data-icono="alerta" hidden>Escribe una referencia para encontrar tu casa.</p>
+            </div>
+          </div>
+          <div class="campo">
+            <label for="f-comentarios">Comentarios <span class="opcional">(opcional)</span></label>
+            <textarea id="f-comentarios" name="comentarios" rows="2" placeholder="Ej. sin azúcar"></textarea>
+          </div>
+
+          <button class="boton-enviar" id="boton-enviar" type="submit" data-icono="enviar">Enviar pedido por WhatsApp</button>
+          <div class="pedido-enviado" id="pedido-enviado" hidden>
+            <p class="pedido-enviado-titulo" id="enviado-titulo" tabindex="-1">¿Ya enviaste tu pedido por WhatsApp?</p>
+            <p class="pedido-enviado-texto">Si ya lo mandaste, vacía el pedido para empezar uno nuevo.</p>
+            <div class="pedido-enviado-botones">
+              <button class="boton-primario" id="vaciar" type="button">Vaciar pedido</button>
+              <button class="boton-secundario" id="conservar" type="button">Conservarlo</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       DATOS DEL NEGOCIO. Lo que se deje vacío ("") no se muestra.
+       - telefono: a 10 dígitos, ej. "333-131-2370". Se marca con +52.
+       - telefonoTexto: lo que dice arriba del número en el botón.
+       - notaEnvio: texto pequeño debajo del botón.
+       - direccion: texto libre, ej. "Calle, número, colonia, ciudad".
+       - redes: en "url" pega la dirección completa (https://...) de cada una.
+         Sin url no aparece el ícono. "cuenta" es el nombre de la página.
+       ========================================================= */
+    const CONFIG = {
+      telefono: "333-131-2370",
+      telefonoTexto: "Pedidos y envío a domicilio",
+      notaEnvio: "Envío a domicilio solo en Temascalcingo",
+      direccion: "",
+      redes: {
+        instagram: { url: "", cuenta: "" },
+        facebook: { url: "", cuenta: "Coffeelandia Cafetería" },
+        tiktok: { url: "", cuenta: "" },
+        resenaGoogle: { url: "", cuenta: "" }, // enlace para dejar reseña en Google
+      },
+      carpetaFotos: "fotos/",
+      fotosSinEspera: 2, // las primeras fotos cargan de inmediato; el resto, al acercarse
+      // Foto que usan las secciones que todavía no tienen la suya, ej. "muestra.jpg".
+      // Vacía: se ve el ícono de línea de la sección.
+      FOTO_MUESTRA: "",
+      // WhatsApp que recibe los pedidos: 52 + 10 dígitos, sin espacios ni signos
+      whatsapp: "523331312370",
+    };
+
+    /* =========================================================
+       ICONOS: dibujos de línea propios en una cuadrícula de 24x24.
+       Trazo de 1.75px, puntas redondeadas y sin relleno (lo pone el CSS).
+       En MENU, "icono" usa el nombre de uno de estos.
+       ========================================================= */
+    const ICONOS = {
+      plato: '<circle cx="12" cy="12.5" r="5.6"/><circle cx="12" cy="12.5" r="3.1"/><path d="M3 4v4.3a1.6 1.6 0 0 0 3.2 0V4"/><path d="M4.6 4v17"/><path d="M21 4c-1.8 0-2.7 2.1-2.7 5.6V12H21"/><path d="M21 4v17"/>',
+      taza: '<path d="M4 9.5h12v3.8A5.7 5.7 0 0 1 10.3 19h-.6A5.7 5.7 0 0 1 4 13.3Z"/><path d="M16 11h1.4a2.4 2.4 0 0 1 0 4.8H15.5"/><path d="M3 21.5h15"/><path d="M8.2 3c-.9 1.1.9 2.2 0 3.5M11.8 3c-.9 1.1.9 2.2 0 3.5"/>',
+      frappe: '<path d="M6.8 10.5h10.4l-1.3 9.6a1 1 0 0 1-1 .9H9.1a1 1 0 0 1-1-.9Z"/><path d="M5.5 10.5h13"/><path d="M7.3 10.5a4.7 4.2 0 0 1 9.4 0"/><path d="M12.8 6.4 14.6 2.5h2.6"/>',
+      tisana: '<path d="M4 11h12v2.6A5.4 5.4 0 0 1 10.6 19h-1.2A5.4 5.4 0 0 1 4 13.6Z"/><path d="M16 12.2h1.4a2.3 2.3 0 0 1 0 4.6H15.6"/><path d="M3 21.5h15"/><path d="M8.5 8.3c0-3 2.1-5 5.2-5 0 3-2.1 5-5.2 5Z"/><path d="M8.5 8.3l2.7-2.7"/>',
+      malteada: '<path d="M7.2 11.5h9.6l-1.4 8.6a1 1 0 0 1-1 .9H9.6a1 1 0 0 1-1-.9Z"/><path d="M6.5 11.5c-.9-1.9.6-3.6 2.4-3.3.5-1.8 2.6-2.6 4.2-1.6 1.6-.6 3.6.6 3.4 2.4 1.2.5 1.4 1.7 1 2.5"/><path d="M14.2 6.6c.2-1.2.9-2.2 1.9-2.8"/><circle cx="16.6" cy="3.6" r="1.1"/>',
+      soda: '<path d="M7 5h10l-1.5 15.1a1 1 0 0 1-1 .9H9.5a1 1 0 0 1-1-.9Z"/><path d="M7.7 11.5h8.6"/><path d="M13.6 5 15.4 1.8"/><circle cx="11" cy="15.2" r=".8"/><circle cx="13.3" cy="17.6" r=".6"/><circle cx="12.7" cy="13.6" r=".5"/>',
+      jarra: '<path d="M6.5 4h9l-1.5 3.2V19a2 2 0 0 1-2 2H8.5a2 2 0 0 1-2-2V4Z"/><path d="M14 9.5h1.8a2.2 2.2 0 0 1 2.2 2.2v2.6a2.2 2.2 0 0 1-2.2 2.2H14"/><path d="M6.5 11.5h7.5"/>',
+      flecha: '<path d="M9 6l6 6-6 6"/>',
+      mas: '<path d="M12 5.5v13M5.5 12h13"/>',
+      menos: '<path d="M5.5 12h13"/>',
+      basura: '<path d="M4.5 7h15"/><path d="M9.5 7V4.5h5V7"/><path d="M6.5 7l.9 12.2a1.9 1.9 0 0 0 1.9 1.8h5.4a1.9 1.9 0 0 0 1.9-1.8L17.5 7"/><path d="M10.2 11v6M13.8 11v6"/>',
+      arriba: '<path d="M6 15l6-6 6 6"/>',
+      enviar: '<path d="M20.5 3.5 10 14"/><path d="M20.5 3.5 14 20.5l-4-6.5-6.5-4Z"/>',
+      alerta: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.8v5M12 16.2h.01"/>',
+      ubicacion: '<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/>',
+      cerrar: '<path d="M6 6l12 12M18 6 6 18"/>',
+    };
+    const icono = (nombre) =>
+      `<svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONOS[nombre] || ICONOS.taza}</svg>`;
+
+    /* =========================================================
+       MENÚ: edita aquí precios, productos y secciones.
+       Hay dos tipos de sección:
+       a) productos: lista con precio propio de cada uno.
+          - nombre, precio (número en pesos). Sin precio (o precio: ""),
+            la fila muestra solo el nombre.
+          - medida (opcional): ej. "355 ml", va junto al nombre
+          - detalle (opcional): texto corto debajo del nombre
+          - ingredientes (opcional): lista de textos, ej. ["Leche", "Café"].
+            Si tiene al menos uno, aparece "Ver ingredientes".
+          - sabores (opcional): al agregarlo al pedido se pide elegir uno.
+            Si no lleva "detalle", debajo del nombre se ve "Sabores: ...".
+          - opciones (opcional): varias preguntas al agregarlo, ej. bebida y
+            agua. "enPedido" arma el nombre que llega por WhatsApp con lo
+            elegido: "Jarra de {bebida} {agua}" → "Jarra de limonada mineral".
+          - unidad (opcional): cómo se nombra uno solo en el pedido,
+            ej. "Jugo natural" para "Jugos naturales".
+       b) precio + sabores: un precio para toda la sección (va junto al
+          título) y los sabores como pastillas. Puede llevar además
+          "productos" aparte con su propio precio (ej. Malteadas).
+          - unidad: cómo se nombra uno en el pedido, ej. "Frappé" para
+            que llegue "Frappé Oreo". Su precio es el de la sección.
+       - foto: una sola foto por sección, dentro de la carpeta fotos/.
+         Cuando subas el archivo, la foto aparece sola. Mientras no exista,
+         se usa FOTO_MUESTRA; si no hay muestra, el ícono de la sección.
+       - pestana: texto corto de la pestaña de arriba.
+       ========================================================= */
+    const MENU = [
+      {
+        id: "alimentos",
+        pestana: "Alimentos",
+        titulo: "Alimentos",
+        foto: "alimentos.jpg",
+        icono: "plato",
+        productos: [
+          { nombre: "Enchiladas", precio: "" },
+          { nombre: "Chilaquiles", precio: "" },
+          { nombre: "Tortas", precio: "" },
+          { nombre: "Ensaladas", precio: "" },
+          { nombre: "Crepas", precio: "" },
+          { nombre: "Waffles", precio: "" },
+        ],
+      },
+      {
+        id: "cafe",
+        pestana: "Café",
+        titulo: "Café",
+        foto: "cafe.jpg",
+        icono: "taza",
+        productos: [
+          { nombre: "Espresso", precio: 35 },
+          { nombre: "Americano", precio: 40 },
+          { nombre: "Capuccino", precio: 50 },
+          { nombre: "Capuccino de sabor", precio: 55, sabores: ["Amaretto", "Vainilla", "Caramelo", "Crema irlandesa", "Avellana"] },
+          { nombre: "Moka", precio: 50 },
+          { nombre: "Chocolate caliente", precio: 50 },
+          { nombre: "Matcha", precio: 50 },
+        ],
+      },
+      {
+        id: "frappes",
+        pestana: "Frappés",
+        titulo: "Frappés",
+        unidad: "Frappé",
+        foto: "frappes.jpg",
+        icono: "frappe",
+        precio: 60,
+        sabores: ["Capuccino", "Taro", "Chocolate blanco", "Cookies & Cream", "Mazapán", "Caramelo", "Chai", "Dubai", "Vainilla", "Ferrero", "Oreo", "Matcha", "Avellana", "Crema irlandesa", "Fresas con crema"],
+      },
+      {
+        id: "tisanas",
+        pestana: "Tisanas",
+        titulo: "Tisanas",
+        unidad: "Tisana",
+        foto: "tisanas.jpg",
+        icono: "tisana",
+        precio: 50,
+        sabores: ["Mora", "Fresa-Kiwi", "Manzana verde", "Arándano"],
+      },
+      {
+        id: "malteadas",
+        pestana: "Malteadas",
+        titulo: "Malteadas",
+        unidad: "Malteada",
+        foto: "malteadas.jpg",
+        icono: "malteada",
+        precio: 65,
+        sabores: ["Fresa", "Vainilla", "Chocolate", "Oreo"],
+        productos: [
+          { nombre: "Nuez de macadamia", precio: 110, detalle: "Hecha con nuez natural" },
+        ],
+      },
+      {
+        id: "sodas",
+        pestana: "Sodas",
+        titulo: "Soda italiana",
+        unidad: "Soda italiana",
+        foto: "sodas.jpg",
+        icono: "soda",
+        precio: 50,
+        sabores: ["Fresa", "Manzana verde", "Mora azul", "Mango", "Blue Curacao"],
+      },
+      {
+        id: "otras",
+        pestana: "Otras",
+        titulo: "Otras bebidas",
+        foto: "otras.jpg",
+        icono: "jarra",
+        productos: [
+          { nombre: "Refresco", medida: "355 ml", precio: 35 },
+          { nombre: "Agua del día", medida: "500 ml", precio: 25 },
+          { nombre: "Jarra de agua del día", medida: "1 L", precio: 50 },
+          { nombre: "Jugos naturales", unidad: "Jugo natural", precio: 50, sabores: ["Naranja", "Zanahoria", "Fresa", "Verde", "Especial"] },
+          {
+            nombre: "Jarra de limonada o naranjada", medida: "1 L", precio: 65, detalle: "Natural o mineral",
+            opciones: [
+              { clave: "bebida", pregunta: "Bebida", valores: ["Limonada", "Naranjada"] },
+              { clave: "agua", pregunta: "Agua", valores: ["Natural", "Mineral"] },
+            ],
+            enPedido: "Jarra de {bebida} {agua}",
+          },
+        ],
+      },
+    ];
+
+    /* ========================================================= */
+
+    const precioTexto = (n) => "$" + n.toLocaleString("es-MX");
+    const tienePrecio = (p) => p.precio !== undefined && p.precio !== null && p.precio !== "";
+    const escapar = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+    // Clave de cada cosa que se puede pedir: sección | producto | sabor
+    const clave = (i) => [i.grupo, i.producto || "", i.sabor || ""].join("|");
+    const tieneSabores = (p) => Array.isArray(p.sabores) && p.sabores.length > 0;
+    const tieneOpciones = (p) => Array.isArray(p.opciones) && p.opciones.length > 0;
+    const eligeAlAgregar = (p) => tieneSabores(p) || tieneOpciones(p);
+    // El texto de sabores sale de la lista: un sabor nuevo se agrega en un solo lugar
+    const detalleDe = (p) => p.detalle || (tieneSabores(p) ? "Sabores: " + p.sabores.join(", ") : "");
+
+    // Ingredientes: si un producto tiene al menos uno, "Ver ingredientes" abre el panel
+    const tieneIngredientes = (p) => Array.isArray(p.ingredientes) && p.ingredientes.length > 0;
+    const pista = (g, n) => `<button class="pista" type="button" aria-haspopup="dialog" data-ingredientes="${g}.${n}">Ver ingredientes ${icono("flecha")}</button>`;
+
+    const rutaMuestra = CONFIG.FOTO_MUESTRA ? CONFIG.carpetaFotos + CONFIG.FOTO_MUESTRA : "";
+
+    let numeroFoto = 0;
+    const atributosCarga = () =>
+      numeroFoto++ < CONFIG.fotosSinEspera ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+
+    // "+" de cada fila; cuando el producto ya está en el pedido se abre en − cantidad +
+    const paso = (g, n, p) => {
+      const nombre = escapar(p.nombre);
+      return `
+                  <span class="paso-lugar"><span class="paso" data-grupo="${g}" data-producto="${n}" data-cantidad="0">
+                    <button class="paso-menos" type="button" aria-label="Quitar uno: ${nombre}">${icono("menos")}</button>
+                    <span class="paso-num">0</span>
+                    <button class="paso-mas" type="button" aria-label="Agregar ${nombre}${tieneSabores(p) ? ", elegir sabor" : tieneOpciones(p) ? ", elegir opciones" : ""}"${eligeAlAgregar(p) ? ' aria-haspopup="dialog"' : ""}>${icono("mas")}</button>
+                  </span></span>`;
+    };
+
+    const filas = (grupo, g) => `
+          <ul class="filas" role="list">
+            ${grupo.productos.map((p, n) => `
+              <li class="fila">
+                <span class="fila-linea">
+                  <span class="fila-nombre">${escapar(p.nombre)}${p.medida ? ` <span class="fila-medida">${escapar(p.medida)}</span>` : ""}</span>
+                  <span class="fila-guia${tienePrecio(p) ? "" : " vacia"}" aria-hidden="true"></span>
+                  ${paso(g, n, p)}
+                  ${tienePrecio(p) ? `<span class="fila-precio">${precioTexto(p.precio)}</span>` : ""}
+                </span>
+                ${detalleDe(p) ? `<span class="fila-detalle">${escapar(detalleDe(p))}</span>` : ""}
+                ${tieneIngredientes(p) ? pista(g, n) : ""}
+              </li>`).join("")}
+          </ul>`;
+
+    const sabores = (grupo, g) => `
+          <p class="sabores-titulo"><span id="sabores-${g}">Sabores</span><span class="sabores-pista">Toca para agregar</span></p>
+          <ul class="sabores" role="list" aria-labelledby="sabores-${g}">
+            ${grupo.sabores.map((s, i) => `<li><button class="sabor" type="button" data-grupo="${g}" data-sabor="${i}" data-cantidad="0" aria-label="Agregar ${escapar((grupo.unidad || grupo.titulo) + " " + s)}">${escapar(s)}<span class="sabor-cuenta" aria-hidden="true"></span></button></li>`).join("")}
+          </ul>`;
+
+    document.getElementById("menu").innerHTML = MENU.map((grupo, g) => `
+      <section class="grupo" id="${escapar(grupo.id)}" aria-labelledby="grupo-${g}">
+        <div class="grupo-cabecera">
+          <h2 class="grupo-titulo" id="grupo-${g}">
+            <span class="grupo-titulo-texto">${escapar(grupo.titulo)}</span>
+            ${tienePrecio(grupo) ? `<span class="grupo-precio">${precioTexto(grupo.precio)}</span>` : ""}
+          </h2>
+        </div>
+        <div class="carta">
+          <span class="carta-media">
+            <span class="carta-icono" aria-hidden="true">${icono(grupo.icono)}</span>
+            ${grupo.foto || rutaMuestra ? `<img class="carta-foto" src="${escapar(grupo.foto ? CONFIG.carpetaFotos + grupo.foto : rutaMuestra)}"${grupo.foto ? "" : ' data-muestra="1"'} alt="" width="1600" height="900" decoding="async" ${atributosCarga()}>` : ""}
+          </span>
+          ${grupo.sabores ? sabores(grupo, g) : ""}
+          ${grupo.productos ? filas(grupo, g) : ""}
+        </div>
+      </section>`).join("");
+
+    // Si la foto existe, aparece sobre el ícono. Si no existe, se prueba la foto
+    // de muestra (CONFIG.FOTO_MUESTRA); si tampoco hay, se quita y queda el ícono.
+    function vigilarFoto(img) {
+      const lista = () => img.classList.add("cargada");
+      const falta = () => {
+        if (rutaMuestra && !img.dataset.muestra) {
+          img.dataset.muestra = "1";
+          img.src = rutaMuestra;
+          vigilarFoto(img);
+        } else {
+          img.remove();
+        }
+      };
+      if (img.complete) {
+        if (img.naturalWidth > 0) lista();
+        else falta();
+      } else {
+        img.addEventListener("load", lista, { once: true });
+        img.addEventListener("error", falta, { once: true });
+      }
+    }
+    document.querySelectorAll(".carta-foto").forEach(vigilarFoto);
+
+    /* ---------- Pie: solo se muestra lo que tenga datos ---------- */
+    (() => {
+      const digitos = CONFIG.telefono.replace(/\D/g, "");
+      if (digitos) {
+        document.getElementById("telefono").href = "tel:+52" + digitos;
+        document.getElementById("telefono-etiqueta").textContent = CONFIG.telefonoTexto.trim() || "Llámanos";
+        document.getElementById("telefono-numero").textContent = CONFIG.telefono;
+        const nota = document.getElementById("nota-envio");
+        nota.textContent = CONFIG.notaEnvio.trim();
+        nota.hidden = !nota.textContent;
+        document.getElementById("pedidos").hidden = false;
+      }
+
+      const REDES = [
+        { clave: "instagram", nombre: "Instagram", icono: "i-instagram" },
+        { clave: "facebook", nombre: "Facebook", icono: "i-facebook" },
+        { clave: "tiktok", nombre: "TikTok", icono: "i-tiktok" },
+        { clave: "resenaGoogle", nombre: "Déjanos tu reseña en Google", icono: "i-google" },
+      ].filter((r) => (CONFIG.redes[r.clave]?.url || "").trim());
+      if (REDES.length) {
+        const ul = document.getElementById("redes");
+        ul.innerHTML = REDES.map((r) => `
+          <li><a href="${escapar(CONFIG.redes[r.clave].url.trim())}" target="_blank" rel="noopener" aria-label="${escapar(r.nombre + (CONFIG.redes[r.clave].cuenta ? ": " + CONFIG.redes[r.clave].cuenta : ""))}">
+            <svg class="icono" aria-hidden="true"><use href="#${r.icono}"/></svg>
+          </a></li>`).join("");
+        ul.hidden = false;
+      }
+
+      if (CONFIG.direccion.trim()) {
+        const dir = document.getElementById("direccion");
+        dir.textContent = CONFIG.direccion.trim();
+        dir.hidden = false;
+      }
+    })();
+
+    /* ---------- Barra superior fija con pestañas ---------- */
+    (() => {
+      const barra = document.getElementById("barra-fija");
+      const nav = document.getElementById("pestanas-fijas");
+      const grupos = [...document.querySelectorAll(".grupo")];
+      const reducir = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      nav.innerHTML = MENU.map((grupo, g) =>
+        `<a href="#${escapar(grupo.id)}"${g === 0 ? ' aria-current="true"' : ""}>${escapar(grupo.pestana)}</a>`).join("");
+      const enlaces = [...nav.querySelectorAll("a")];
+      let actual = 0;
+      const marcar = (i) => {
+        if (i < 0) return;
+        enlaces.forEach((a, n) => {
+          if (n === i) a.setAttribute("aria-current", "true");
+          else a.removeAttribute("aria-current");
+        });
+        if (i === actual) return;
+        actual = i;
+        // La pestaña activa se recorre al centro de la barra si no cabía
+        const a = enlaces[i];
+        nav.scrollTo({
+          left: a.offsetLeft - (nav.clientWidth - a.offsetWidth) / 2,
+          behavior: reducir.matches ? "auto" : "smooth",
+        });
+      };
+
+      nav.addEventListener("click", (e) => {
+        const a = e.target.closest("a");
+        if (!a) return;
+        e.preventDefault();
+        marcar(enlaces.indexOf(a));
+        document.getElementById(a.hash.slice(1))
+          .scrollIntoView({ behavior: reducir.matches ? "auto" : "smooth", block: "start" });
+      });
+
+      const mostrar = (ver) => {
+        barra.classList.toggle("visible", ver);
+        barra.inert = !ver;
+      };
+      if (!("IntersectionObserver" in window)) return mostrar(true);
+
+      // Aparece cuando la cabecera ya salió de la pantalla
+      new IntersectionObserver(([e]) => mostrar(!e.isIntersecting))
+        .observe(document.querySelector(".cabecera"));
+
+      // La sección que cruza la mitad superior de la pantalla es la activa
+      const io = new IntersectionObserver((entradas) => entradas.forEach((e) => {
+        if (e.isIntersecting) marcar(grupos.indexOf(e.target));
+      }), { rootMargin: "-30% 0px -60% 0px" });
+      grupos.forEach((el) => io.observe(el));
+    })();
+
+    /* =========================================================
+       HOJAS QUE SUBEN DESDE ABAJO: ingredientes, sabor y pedido.
+       Una abierta a la vez. Se cierran con el fondo, la X, Escape
+       o deslizando hacia abajo desde el encabezado.
+       ========================================================= */
+    document.querySelectorAll("[data-icono]").forEach((el) => el.insertAdjacentHTML("afterbegin", icono(el.dataset.icono)));
+
+    const reducir = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let hojaActiva = null;
+    let scrollGuardado = 0;
+
+    // Fija el fondo donde está para que no haga scroll ni brinque al cerrar
+    function bloquearScroll() {
+      scrollGuardado = window.scrollY;
+      Object.assign(document.body.style, { position: "fixed", top: `-${scrollGuardado}px`, left: "0", right: "0" });
+    }
+    function liberarScroll() {
+      Object.assign(document.body.style, { position: "", top: "", left: "", right: "" });
+      window.scrollTo({ top: scrollGuardado, behavior: "instant" });
+    }
+
+    function crearHoja(hoja) {
+      const panel = hoja.querySelector(".hoja-panel");
+      const zona = hoja.querySelector(".hoja-arrastre");
+      const control = { hoja, panel, origen: null, cerrando: false };
+      let inertPrevio = new Map();
+
+      control.abrir = (origen, foco) => {
+        if (hojaActiva) return;
+        hojaActiva = control;
+        control.origen = origen || null;
+        bloquearScroll();
+        // El aviso para lector de pantalla queda fuera para que se siga oyendo
+        const resto = [...document.body.children].filter((el) => el !== hoja && el.id !== "anuncio" && el.tagName !== "SCRIPT");
+        inertPrevio = new Map(resto.map((el) => [el, el.inert]));
+        resto.forEach((el) => { el.inert = true; });
+        panel.style.transform = "";
+        hoja.hidden = false;
+        panel.scrollTop = 0;
+        hoja.getBoundingClientRect(); // fija el estado inicial antes de animar
+        hoja.classList.add("abierta");
+        (foco || hoja.querySelector("[data-cerrar-boton]")).focus({ preventScroll: true });
+      };
+
+      control.cerrar = () => {
+        if (hoja.hidden || control.cerrando) return;
+        control.cerrando = true;
+        panel.classList.remove("arrastrando");
+        panel.style.transform = ""; // si se estaba arrastrando, baja desde donde quedó
+        hoja.classList.remove("abierta");
+        setTimeout(() => {
+          hoja.hidden = true;
+          inertPrevio.forEach((valor, el) => { el.inert = valor; });
+          liberarScroll();
+          hojaActiva = null;
+          control.cerrando = false;
+          pintarBarraPedido(); // por si el pedido cambió mientras estaba abierta
+          if (control.origen?.isConnected) control.origen.focus({ preventScroll: true });
+        }, 240);
+      };
+
+      hoja.querySelectorAll("[data-cerrar]").forEach((el) => el.addEventListener("click", control.cerrar));
+
+      // Deslizar hacia abajo para cerrar: basta un movimiento rápido o pasar 90px
+      let arrastre = null;
+      zona.addEventListener("pointerdown", (e) => {
+        if (arrastre || !e.isPrimary || e.button !== 0 || e.target.closest("button, a, input, textarea")) return;
+        arrastre = { id: e.pointerId, y: e.clientY, t: performance.now(), dy: 0 };
+        zona.setPointerCapture(e.pointerId);
+        panel.classList.add("arrastrando");
+      });
+      zona.addEventListener("pointermove", (e) => {
+        if (!arrastre || e.pointerId !== arrastre.id) return;
+        const dy = e.clientY - arrastre.y;
+        arrastre.dy = dy;
+        // Hacia arriba no sube libre: se frena cada vez más
+        const y = dy >= 0 ? dy : -Math.sqrt(-dy) * 2;
+        panel.style.transform = `translateY(${y}px)`;
+      });
+      const soltar = (e) => {
+        if (!arrastre || e.pointerId !== arrastre.id) return;
+        const { dy, t } = arrastre;
+        arrastre = null;
+        panel.classList.remove("arrastrando");
+        const velocidad = dy / Math.max(1, performance.now() - t);
+        if (dy > 90 || (dy > 12 && velocidad > 0.11)) control.cerrar();
+        else panel.style.transform = "";
+      };
+      zona.addEventListener("pointerup", soltar);
+      zona.addEventListener("pointercancel", soltar);
+
+      return control;
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (!hojaActiva) return;
+      if (e.key === "Escape") return hojaActiva.cerrar();
+      // El foco no sale de la hoja mientras está abierta
+      if (e.key === "Tab") {
+        const enfocables = [...hojaActiva.panel.querySelectorAll("button, a[href], input, textarea, [tabindex]:not([tabindex='-1'])")]
+          .filter((el) => !el.disabled && el.getClientRects().length > 0 && getComputedStyle(el).visibility !== "hidden");
+        if (!enfocables.length) return;
+        const i = enfocables.indexOf(document.activeElement);
+        const siguiente = e.shiftKey ? (i <= 0 ? enfocables.length - 1 : i - 1) : (i + 1) % enfocables.length;
+        e.preventDefault();
+        enfocables[siguiente].focus();
+      }
+    });
+
+    /* ---------- Panel de ingredientes ---------- */
+    const hojaIngredientes = crearHoja(document.getElementById("hoja"));
+    document.getElementById("menu").addEventListener("click", (e) => {
+      const boton = e.target.closest(".pista[data-ingredientes]");
+      if (!boton) return;
+      const [g, n] = boton.dataset.ingredientes.split(".").map(Number);
+      const grupo = MENU[g];
+      const p = grupo.productos[n];
+      const media = document.getElementById("hoja-media");
+
+      document.getElementById("hoja-titulo").textContent = p.nombre;
+      document.getElementById("hoja-precio").textContent = tienePrecio(p) ? precioTexto(p.precio) : "";
+      document.getElementById("hoja-detalle").textContent = [p.medida, detalleDe(p)].filter(Boolean).join(". ");
+      document.getElementById("hoja-ingredientes").innerHTML = p.ingredientes.map((i) => `<li>${escapar(i)}</li>`).join("");
+
+      // Ícono sobre rosa; si existe la foto de la sección, la cubre
+      media.innerHTML = icono(grupo.icono);
+      const foto = grupo.foto ? CONFIG.carpetaFotos + grupo.foto : rutaMuestra;
+      if (foto) {
+        const img = new Image();
+        img.alt = "";
+        img.decoding = "async";
+        img.onload = () => {
+          if (hojaIngredientes.origen !== boton) return;
+          media.appendChild(img);
+          requestAnimationFrame(() => img.classList.add("cargada"));
+        };
+        // Sin foto propia, el panel también usa la foto de muestra
+        img.onerror = () => {
+          if (rutaMuestra && img.src.indexOf(rutaMuestra) === -1) img.src = rutaMuestra;
+        };
+        img.src = foto;
+      }
+      hojaIngredientes.abrir(boton);
+    });
+
+    /* =========================================================
+       PEDIDO POR WHATSAPP
+       El carrito guarda solo qué se pidió y cuántos. El precio siempre
+       se lee de MENU: si cambias un precio, el carrito lo toma solo.
+       ========================================================= */
+    const GUARDADO = "coffeelandia-pedido";
+    const ENVIO = "Envío a domicilio";
+    const pedido = {
+      folio: "",
+      items: [], // { grupo, producto, sabor, cantidad }
+      datos: { nombre: "", entrega: "", direccion: "", referencia: "", comentarios: "" },
+      preguntarVaciar: false, // ya se mandó por WhatsApp: falta preguntar si se vacía
+    };
+
+    // Lo que corresponde en MENU a un renglón del pedido (null si ya no existe)
+    function resolver(i) {
+      const grupo = MENU.find((x) => x.id === i.grupo);
+      if (!grupo) return null;
+      if (!i.producto) {
+        if (!grupo.sabores?.includes(i.sabor)) return null;
+        const nombre = grupo.unidad || grupo.titulo;
+        return { nombre, sabor: i.sabor, precio: tienePrecio(grupo) ? grupo.precio : null, texto: `${nombre} ${i.sabor}` };
+      }
+      const p = grupo.productos?.find((x) => x.nombre === i.producto);
+      if (!p) return null;
+      const precio = tienePrecio(p) ? p.precio : null;
+      if (tieneOpciones(p)) {
+        // Lo elegido se guarda como "Limonada|Mineral", en el orden de las preguntas
+        const elegido = i.sabor.split("|");
+        if (elegido.length !== p.opciones.length || elegido.some((v, k) => !p.opciones[k].valores.includes(v))) return null;
+        const base = p.enPedido
+          ? p.opciones.reduce((t, o, k) => t.replace(`{${o.clave}}`, elegido[k].toLowerCase()), p.enPedido)
+          : `${p.nombre} (${elegido.join(", ")})`;
+        const texto = base + (p.medida ? " " + p.medida : "");
+        return { nombre: texto, sabor: "", precio, texto };
+      }
+      if (tieneSabores(p) ? !p.sabores.includes(i.sabor) : i.sabor) return null;
+      const nombre = (p.unidad || p.nombre) + (p.medida ? " " + p.medida : "");
+      return { nombre, sabor: i.sabor || "", precio, texto: i.sabor ? `${nombre} (${i.sabor})` : nombre };
+    }
+
+    // Folio corto para decir en la tienda: "C-482"
+    const nuevoFolio = () => "C-" + String(crypto.getRandomValues(new Uint16Array(1))[0] % 1000).padStart(3, "0");
+
+    function guardar() {
+      try {
+        localStorage.setItem(GUARDADO, JSON.stringify(pedido));
+      } catch (e) {
+        // Sin almacenamiento (modo privado, bloqueado): el pedido vive solo en esta visita
+      }
+    }
+    function cargar() {
+      let d = null;
+      try { d = JSON.parse(localStorage.getItem(GUARDADO) || "null"); } catch (e) { d = null; }
+      if (!d || typeof d !== "object") return;
+      if (Array.isArray(d.items)) {
+        pedido.items = d.items
+          .filter((i) => i && typeof i === "object" && Number.isInteger(i.cantidad) && i.cantidad > 0)
+          .map((i) => ({ grupo: String(i.grupo || ""), producto: String(i.producto || ""), sabor: String(i.sabor || ""), cantidad: Math.min(i.cantidad, 99) }))
+          .filter((i) => resolver(i)); // lo que ya no está en MENU se descarta
+      }
+      if (d.datos && typeof d.datos === "object") {
+        for (const k of Object.keys(pedido.datos)) if (typeof d.datos[k] === "string") pedido.datos[k] = d.datos[k];
+      }
+      pedido.folio = typeof d.folio === "string" && /^C-\d{3}$/.test(d.folio) ? d.folio : "";
+      if (!pedido.items.length) pedido.folio = "";
+      else if (!pedido.folio) pedido.folio = nuevoFolio();
+      pedido.preguntarVaciar = d.preguntarVaciar === true && pedido.items.length > 0;
+    }
+
+    const resumen = () => {
+      let cantidad = 0, total = 0, sinPrecio = 0;
+      for (const i of pedido.items) {
+        const r = resolver(i);
+        cantidad += i.cantidad;
+        if (r.precio === null) sinPrecio += i.cantidad;
+        else total += r.precio * i.cantidad;
+      }
+      return { cantidad, total, sinPrecio };
+    };
+    // "$165", "$165 + por confirmar" o "por confirmar"
+    const totalTexto = ({ total, sinPrecio }, extra = "") =>
+      !sinPrecio ? precioTexto(total) : total ? `${precioTexto(total)} + ${extra}por confirmar` : "por confirmar";
+
+    const anuncio = document.getElementById("anuncio");
+    const anunciar = (texto) => {
+      anuncio.textContent = "";
+      requestAnimationFrame(() => { anuncio.textContent = texto; });
+    };
+
+    // Pequeño latido al cambiar un número: confirma que el toque se registró
+    const pulso = (el, escala = 1.2) => {
+      if (!el || reducir.matches || !el.animate) return;
+      el.animate([{ transform: "scale(1)" }, { transform: `scale(${escala})` }, { transform: "scale(1)" }],
+        { duration: 220, easing: "cubic-bezier(0.23, 1, 0.32, 1)" });
+    };
+
+    function cambiar(item, delta) {
+      const c = clave(item);
+      const i = pedido.items.findIndex((x) => clave(x) === c);
+      if (i === -1) {
+        if (delta <= 0) return;
+        pedido.items.push({ grupo: item.grupo, producto: item.producto || "", sabor: item.sabor || "", cantidad: 1 });
+      } else {
+        pedido.items[i].cantidad = Math.min(99, pedido.items[i].cantidad + delta);
+        if (pedido.items[i].cantidad <= 0) pedido.items.splice(i, 1);
+      }
+      if (!pedido.items.length) pedido.folio = "";
+      else if (!pedido.folio) pedido.folio = nuevoFolio();
+      pedido.preguntarVaciar = false;
+      guardar();
+      refrescar(delta > 0);
+      const r = resolver(item);
+      const n = pedido.items.find((x) => clave(x) === c)?.cantidad || 0;
+      anunciar(delta > 0 ? `Agregado: ${r.texto}. Llevas ${n}.` : n ? `${r.texto}: quedan ${n}.` : `${r.texto} quitado del pedido.`);
+    }
+
+    // Pone al día los "+", las pastillas, la barra y la hoja del pedido
+    function refrescar(sumo) {
+      document.querySelectorAll(".fila .paso").forEach((el) => {
+        const grupo = MENU[el.dataset.grupo];
+        const p = grupo.productos[el.dataset.producto];
+        const n = pedido.items.reduce((s, i) => s + (i.grupo === grupo.id && i.producto === p.nombre ? i.cantidad : 0), 0);
+        const antes = Number(el.dataset.cantidad);
+        if (n === antes) return;
+        el.dataset.cantidad = n;
+        el.classList.toggle("con", n > 0);
+        if (n > 0) el.querySelector(".paso-num").textContent = n;
+        if (n > antes && antes > 0) pulso(el.querySelector(".paso-num"));
+      });
+      document.querySelectorAll(".sabor").forEach((el) => {
+        const grupo = MENU[el.dataset.grupo];
+        const sabor = grupo.sabores[el.dataset.sabor];
+        const n = pedido.items.find((i) => i.grupo === grupo.id && !i.producto && i.sabor === sabor)?.cantidad || 0;
+        const antes = Number(el.dataset.cantidad);
+        if (n === antes) return;
+        el.dataset.cantidad = n;
+        el.classList.toggle("con", n > 0);
+        if (n > 0) el.querySelector(".sabor-cuenta").textContent = n; // al quitar, el número se va desvaneciendo
+        el.setAttribute("aria-label", `Agregar ${grupo.unidad || grupo.titulo} ${sabor}${n ? `, llevas ${n}` : ""}`);
+        if (n > antes && antes > 0) pulso(el.querySelector(".sabor-cuenta"));
+      });
+      pintarBarraPedido(sumo);
+      if (hojaActiva === hojaPedido && !hojaPedido.cerrando) pintarPedido();
+    }
+
+    /* ---------- Barra del pedido ---------- */
+    const barraPedido = document.getElementById("barra-pedido");
+    function pintarBarraPedido(sumo) {
+      const r = resumen();
+      const visible = r.cantidad > 0;
+      const yaEstaba = barraPedido.classList.contains("visible");
+      if (visible) {
+        document.getElementById("barra-pedido-resumen").textContent =
+          `${r.cantidad} ${r.cantidad === 1 ? "producto" : "productos"} · ${totalTexto(r)}`;
+      }
+      barraPedido.classList.toggle("visible", visible);
+      barraPedido.inert = !visible || hojaActiva !== null;
+      document.body.classList.toggle("con-pedido", visible);
+      if (sumo && yaEstaba) pulso(barraPedido.querySelector(".barra-pedido-boton"), 1.03);
+    }
+
+    /* ---------- Hoja de sabor u opciones (Capuccino de sabor, Jugos, Jarra) ----------
+       Con "sabores": un toque al sabor y se agrega.
+       Con "opciones": se contesta cada pregunta y luego "Agregar al pedido". */
+    const hojaSabor = crearHoja(document.getElementById("hoja-sabor"));
+    const contenidoSabor = document.getElementById("sabor-contenido");
+    let saborDe = null;
+    function abrirSabores(grupo, p, origen) {
+      saborDe = { grupo: grupo.id, producto: p.nombre, p };
+      document.getElementById("sabor-titulo").textContent = p.nombre;
+      document.getElementById("sabor-precio").textContent =
+        (tienePrecio(p) ? precioTexto(p.precio) : "Precio por confirmar") + (p.medida ? " · " + p.medida : "");
+      contenidoSabor.innerHTML = tieneSabores(p)
+        ? `<h3 class="hoja-subtitulo">Elige el sabor</h3>
+           <ul class="opciones" role="list">${p.sabores.map((s) => `<li><button class="opcion" type="button" data-sabor="${escapar(s)}">${escapar(s)}</button></li>`).join("")}</ul>`
+        : `<form class="eleccion" novalidate>
+             ${p.opciones.map((o, k) => `
+             <fieldset class="campo">
+               <legend>${escapar(o.pregunta)}</legend>
+               <div class="entrega-opciones">${o.valores.map((v) => `<label class="entrega-opcion"><input type="radio" name="op${k}" value="${escapar(v)}"><span>${escapar(v)}</span></label>`).join("")}</div>
+             </fieldset>`).join("")}
+             <button class="boton-enviar" type="submit" disabled></button>
+           </form>`;
+      if (tieneOpciones(p)) pintarEleccion();
+      hojaSabor.abrir(origen);
+    }
+    // El botón dice qué falta por elegir; con todo elegido, "Agregar al pedido"
+    function pintarEleccion() {
+      const { p } = saborDe;
+      const faltan = p.opciones.filter((o, k) => !contenidoSabor.querySelector(`input[name="op${k}"]:checked`));
+      const boton = contenidoSabor.querySelector(".boton-enviar");
+      boton.disabled = faltan.length > 0;
+      boton.textContent = faltan.length
+        ? "Elige " + faltan.map((o) => o.pregunta.toLowerCase()).join(" y ")
+        : "Agregar al pedido" + (tienePrecio(p) ? " · " + precioTexto(p.precio) : "");
+    }
+    contenidoSabor.addEventListener("change", pintarEleccion);
+    contenidoSabor.addEventListener("click", (e) => {
+      const b = e.target.closest(".opcion");
+      if (!b || !saborDe || hojaSabor.cerrando) return;
+      cambiar({ grupo: saborDe.grupo, producto: saborDe.producto, sabor: b.dataset.sabor }, 1);
+      hojaSabor.cerrar();
+    });
+    contenidoSabor.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!saborDe || hojaSabor.cerrando) return;
+      const elegido = saborDe.p.opciones.map((o, k) => contenidoSabor.querySelector(`input[name="op${k}"]:checked`)?.value);
+      if (elegido.some((v) => !v)) return;
+      cambiar({ grupo: saborDe.grupo, producto: saborDe.producto, sabor: elegido.join("|") }, 1);
+      hojaSabor.cerrar();
+    });
+
+    /* ---------- Toques en el menú: "+", "−" y pastillas de sabor ---------- */
+    document.getElementById("menu").addEventListener("click", (e) => {
+      const boton = e.target.closest(".paso-mas, .paso-menos");
+      if (boton) {
+        const el = boton.closest(".paso");
+        const grupo = MENU[el.dataset.grupo];
+        const p = grupo.productos[el.dataset.producto];
+        if (boton.classList.contains("paso-mas")) {
+          if (eligeAlAgregar(p)) abrirSabores(grupo, p, boton);
+          else cambiar({ grupo: grupo.id, producto: p.nombre }, 1);
+          return;
+        }
+        // "−": si lleva varios sabores u opciones, se elige cuál en la hoja del pedido
+        const variantes = pedido.items.filter((i) => i.grupo === grupo.id && i.producto === p.nombre);
+        if (variantes.length > 1) return abrirPedido(boton);
+        if (variantes.length === 1) cambiar(variantes[0], -1);
+        if (!el.classList.contains("con")) el.querySelector(".paso-mas").focus({ preventScroll: true });
+        return;
+      }
+      const sabor = e.target.closest(".sabor");
+      if (sabor) {
+        const grupo = MENU[sabor.dataset.grupo];
+        cambiar({ grupo: grupo.id, sabor: grupo.sabores[sabor.dataset.sabor] }, 1);
+      }
+    });
+
+    /* ---------- Hoja del pedido ---------- */
+    const hojaPedido = crearHoja(document.getElementById("hoja-pedido"));
+    const form = document.getElementById("pedido-form");
+
+    function abrirPedido(origen) {
+      pintarPedido();
+      pintarDatos();
+      hojaPedido.abrir(origen);
+    }
+    document.getElementById("ver-pedido").addEventListener("click", (e) => abrirPedido(e.currentTarget));
+
+    function pintarPedido() {
+      const vacio = pedido.items.length === 0;
+      document.getElementById("pedido-vacio").hidden = !vacio;
+      document.getElementById("pedido-contenido").hidden = vacio;
+      document.getElementById("pedido-folio").textContent = vacio ? "" : `Folio ${pedido.folio}`;
+      if (vacio) return;
+      document.getElementById("pedido-lista").innerHTML = pedido.items.map((i) => {
+        const r = resolver(i);
+        const c = escapar(clave(i));
+        const texto = escapar(r.texto);
+        return `
+          <li class="pedido-item">
+            <div class="pedido-fila">
+              <div class="pedido-texto">
+                <span class="pedido-nombre">${escapar(r.nombre)}</span>
+                ${r.sabor ? `<span class="pedido-sabor">${escapar(r.sabor)}</span>` : ""}
+              </div>
+              <div class="pedido-importe">
+                ${r.precio === null
+                  ? `<span class="pedido-pendiente">precio por confirmar</span>`
+                  : `<span class="pedido-subtotal">${precioTexto(r.precio * i.cantidad)}</span>${i.cantidad > 1 ? `<span class="pedido-unitario">${precioTexto(r.precio)} c/u</span>` : ""}`}
+              </div>
+            </div>
+            <div class="pedido-controles">
+              <span class="paso con estatico">
+                <button class="paso-menos" type="button" data-accion="menos" data-clave="${c}" aria-label="Quitar uno: ${texto}">${icono("menos")}</button>
+                <span class="paso-num">${i.cantidad}</span>
+                <button class="paso-mas" type="button" data-accion="mas" data-clave="${c}" aria-label="Agregar otro: ${texto}">${icono("mas")}</button>
+              </span>
+              <button class="pedido-quitar" type="button" data-accion="quitar" data-clave="${c}" aria-label="Quitar ${texto} del pedido">${icono("basura")}Quitar</button>
+            </div>
+          </li>`;
+      }).join("");
+      const r = resumen();
+      document.getElementById("pedido-total").textContent = r.total || !r.sinPrecio ? precioTexto(r.total) : "Por confirmar";
+      document.getElementById("pedido-total-nota").hidden = !(r.sinPrecio && r.total);
+      document.getElementById("boton-enviar").hidden = pedido.preguntarVaciar;
+      document.getElementById("pedido-enviado").hidden = !pedido.preguntarVaciar;
+    }
+
+    document.getElementById("pedido-lista").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-accion]");
+      if (!b) return;
+      const { accion, clave: c } = b.dataset;
+      const indice = pedido.items.findIndex((i) => clave(i) === c);
+      if (indice === -1) return;
+      cambiar(pedido.items[indice], accion === "mas" ? 1 : accion === "menos" ? -1 : -Infinity);
+      // La lista se volvió a pintar: el foco sigue en el mismo botón o pasa al renglón siguiente
+      const lista = document.getElementById("pedido-lista");
+      const mismo = lista.querySelector(`[data-accion="${accion}"][data-clave="${CSS.escape(c)}"]`);
+      const vecino = lista.querySelectorAll(".pedido-item")[Math.min(indice, pedido.items.length - 1)]?.querySelector(".paso-mas");
+      const destino = mismo || vecino || document.getElementById(pedido.items.length ? "pedido-titulo" : "pedido-vacio-boton");
+      destino?.focus({ preventScroll: true });
+    });
+
+    /* ---------- Datos del cliente ---------- */
+    const camposTexto = ["nombre", "direccion", "referencia", "comentarios"];
+    function pintarDatos() {
+      for (const k of camposTexto) form.elements[k].value = pedido.datos[k];
+      for (const r of form.querySelectorAll('input[name="entrega"]')) r.checked = r.value === pedido.datos.entrega;
+      document.getElementById("envio").hidden = pedido.datos.entrega !== ENVIO;
+    }
+    function marcarError(nombre, hay) {
+      document.getElementById("e-" + nombre).hidden = !hay;
+      if (nombre === "entrega") return form.querySelector(".entrega").classList.toggle("con-error", hay);
+      if (hay) form.elements[nombre].setAttribute("aria-invalid", "true");
+      else form.elements[nombre].removeAttribute("aria-invalid");
+    }
+    form.addEventListener("input", (e) => {
+      const el = e.target;
+      if (!(el.name in pedido.datos)) return;
+      pedido.datos[el.name] = el.value;
+      if (el.name === "entrega") document.getElementById("envio").hidden = el.value !== ENVIO;
+      if (el.name !== "comentarios") marcarError(el.name, false);
+      guardar(); // si se cierra la página, lo escrito no se pierde
+    });
+
+    const unaLinea = (s) => s.replace(/\s+/g, " ").trim();
+    function mensajePedido() {
+      const d = pedido.datos;
+      const lineas = ["Hola, quiero hacer un pedido:", `Folio: ${pedido.folio}`];
+      for (const i of pedido.items) {
+        const r = resolver(i);
+        lineas.push(`• ${i.cantidad} ${r.texto} — ${r.precio === null ? "por confirmar" : precioTexto(r.precio * i.cantidad)}`);
+      }
+      lineas.push(`Total: ${totalTexto(resumen(), "productos ")}`);
+      lineas.push(`Nombre: ${unaLinea(d.nombre)}`);
+      lineas.push(`Entrega: ${d.entrega}`);
+      if (d.entrega === ENVIO) lineas.push(`Dirección: ${unaLinea(d.direccion)} / Referencia: ${unaLinea(d.referencia)}`);
+      if (d.comentarios.trim()) lineas.push(`Comentarios: ${d.comentarios.trim()}`);
+      return lineas.join("\n");
+    }
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const d = pedido.datos;
+      const faltan = [];
+      if (!d.nombre.trim()) faltan.push("nombre");
+      if (!d.entrega) faltan.push("entrega");
+      if (d.entrega === ENVIO && !d.direccion.trim()) faltan.push("direccion");
+      if (d.entrega === ENVIO && !d.referencia.trim()) faltan.push("referencia");
+      for (const k of ["nombre", "entrega", "direccion", "referencia"]) marcarError(k, faltan.includes(k));
+      if (faltan.length) {
+        const primero = faltan[0] === "entrega" ? form.querySelector('input[name="entrega"]') : form.elements[faltan[0]];
+        primero.focus();
+        anunciar("Faltan datos para enviar el pedido.");
+        return;
+      }
+      const url = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(mensajePedido())}`;
+      const ventana = window.open(url, "_blank");
+      if (ventana) {
+        try { ventana.opener = null; } catch (err) { /* otra ventana */ }
+      } else {
+        location.href = url; // si el navegador bloquea la ventana nueva
+      }
+      pedido.preguntarVaciar = true;
+      guardar();
+      pintarPedido();
+      document.getElementById("enviado-titulo").focus({ preventScroll: true });
+    });
+
+    document.getElementById("vaciar").addEventListener("click", () => {
+      pedido.items = [];
+      pedido.folio = "";
+      pedido.datos.comentarios = "";
+      pedido.preguntarVaciar = false;
+      guardar();
+      hojaPedido.cerrar();
+      refrescar(false);
+      anunciar("Pedido vaciado.");
+    });
+    document.getElementById("conservar").addEventListener("click", () => {
+      pedido.preguntarVaciar = false;
+      guardar();
+      pintarPedido();
+      document.getElementById("boton-enviar").focus({ preventScroll: true });
+    });
+
+    // Pedido guardado de una visita anterior: aparece ya en su lugar, sin animar
+    cargar();
+    document.documentElement.classList.add("sin-animar");
+    refrescar(false);
+    requestAnimationFrame(() => requestAnimationFrame(() => document.documentElement.classList.remove("sin-animar")));
+  </script>
+
+</body>
+</html>
